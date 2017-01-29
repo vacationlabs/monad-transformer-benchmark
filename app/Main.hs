@@ -61,6 +61,11 @@ fetchEndpoint port = do
   res <- W.get ("http://localhost:" ++ (show port) ++ "/")
   return $ force $ res ^. responseBody
 
+lotsOfDivs :: Monad m => Int -> HtmlT m ()
+lotsOfDivs n = body_
+             $ replicateM_ n
+             $ div_ "hello world!"
+
 main :: IO ()
 main = do
   s1 <- forkIO $ bareScotty
@@ -68,8 +73,12 @@ main = do
   s3 <- forkIO $ transScottyBareLucid
   s4 <- forkIO $ transScottyTransLucid
   defaultMain
-    [
-      bench "bareScotty" $ whnfIO $ fetchEndpoint 3001
+    [ bench "renderText"     $ nf                 (renderText  . lotsOfDivs) 10000
+    , bench "renderTextT Id" $ nf   (runIdentity . renderTextT . lotsOfDivs) 10000
+    , bench "renderTextT Rd" $ nf   (flip runReader ()
+                                                 . renderTextT . lotsOfDivs) 10000
+    , bench "renderTextT IO" $ nfIO               (renderTextT  (lotsOfDivs  10000))
+    , bench "bareScotty" $ whnfIO $ fetchEndpoint 3001
     , bench "bareScottyBareLucid" $ whnfIO $ fetchEndpoint 3001
     , bench "transScottyBareLucid" $ whnfIO $ fetchEndpoint 3002
     , bench "transScottyTransLucid" $ whnfIO $ fetchEndpoint 3003
