@@ -1,6 +1,6 @@
 # Overview
 
-Minimal code to demonstrate the severe performance drop incurred when the monad transformers of Scotty & Lucid are combined, i.e. `ScottyT` and `HtmlT`
+Minimal code to demonstrate the severe performance drop incurred when the monad transformers of Scotty & Lucid are combined, i.e. `ScottyT` and `HtmlT`. Take a look at the benchmark numbers below of `tranScottyBareLucid` and `transScottyTransLucid` - almost a 100ms drop in this synthetic benchmark. In the real-life application code where I first noticed it, it was a 200ms performance penalty.
 
 # Discussion
 
