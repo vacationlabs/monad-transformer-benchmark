@@ -4,7 +4,7 @@ Minimal code to demonstrate the severe performance drop incurred when the monad 
 
 # Discussion
 
-Discussion over at Reddit - https://www.reddit.com/r/haskell/comments/5qpi15/expected_performance_drop_while_using_monad/
+Discuss on Reddit - https://www.reddit.com/r/haskell/comments/5qpi15/expected_performance_drop_while_using_monad/ or send me a PR if you feel the benchmarking method is not correct.
 
 # Benchmark results
 
