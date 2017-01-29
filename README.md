@@ -57,5 +57,5 @@ variance introduced by outliers: 12% (moderately inflated)
 
 ```
 $ stack build
-$ stack exec monad-transformed-benchmark-exe
+$ stack exec monad-transformer-benchmark-exe
 ```
