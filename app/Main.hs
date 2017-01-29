@@ -40,7 +40,7 @@ transScottyBareLucid = ST.scottyT 3002 insideReader app
       ST.html $ renderText generateHtml
 
     generateHtml = body_ $ do
-      forM [1..10000] (\_ -> div_ "hello world!")
+      replicateM_ 10000 (div_ "hello world!")
 
     insideReader action = runReaderT action ()
 
@@ -51,9 +51,9 @@ transScottyTransLucid = ST.scottyT 3003 insideReader app
     app = ST.get "/" $ do
       renderTextT generateHtml >>= ST.html
 
-    generateHtml :: Monad m => HtmlT m [()]
+    generateHtml :: Monad m => HtmlT m ()
     generateHtml = body_ $ do
-      forM [1..10000] (\_ -> div_ "hello world!")
+      replicateM_ 10000 (div_ "hello world!")
 
     insideReader action = runReaderT action ()
 
@@ -63,8 +63,9 @@ fetchEndpoint port = do
 
 lotsOfDivs :: Monad m => Int -> HtmlT m ()
 lotsOfDivs n = body_
-             $ replicateM_ n
-             $ div_ "hello world!"
+  $ replicateM_ n
+  $ div_ "hello world!"
+
 
 main :: IO ()
 main = do
@@ -72,17 +73,16 @@ main = do
   s2 <- forkIO $ bareScottyBareLucid
   s3 <- forkIO $ transScottyBareLucid
   s4 <- forkIO $ transScottyTransLucid
+  threadDelay (2*1000000) -- wait for 2 seconds to allow scotty threads to become functional
   defaultMain
-    [ bench "renderText"     $ nf                 (renderText  . lotsOfDivs) 10000
-    , bench "renderTextT Id" $ nf   (runIdentity . renderTextT . lotsOfDivs) 10000
-    , bench "renderTextT Rd" $ nf   (flip runReader ()
-                                                 . renderTextT . lotsOfDivs) 10000
-    , bench "renderTextT IO" $ nfIO               (renderTextT  (lotsOfDivs  10000))
-    , bench "bareScotty" $ whnfIO $ fetchEndpoint 3001
-    , bench "bareScottyBareLucid" $ whnfIO $ fetchEndpoint 3001
-    , bench "transScottyBareLucid" $ whnfIO $ fetchEndpoint 3002
-    , bench "transScottyTransLucid" $ whnfIO $ fetchEndpoint 3003
-    , bench "bareScotty" $ whnfIO $ fetchEndpoint 3001
+    [ bench "renderText"     $ nf   (renderText  . lotsOfDivs) 10000
+    , bench "renderTextT Identity" $ nf (runIdentity . renderTextT . lotsOfDivs) 10000
+    , bench "renderTextT Reader" $ nf (flip runReader () . renderTextT . lotsOfDivs) 10000
+    , bench "renderTextT IO" $ nfIO (renderTextT  (lotsOfDivs  10000) :: IO LT.Text)
+    , bench "bareScotty" $ nfIO $ fetchEndpoint 3001
+    , bench "bareScottyBareLucid" $ nfIO $ fetchEndpoint 3001
+    , bench "transScottyBareLucid" $ nfIO $ fetchEndpoint 3002
+    , bench "transScottyTransLucid" $ nfIO $ fetchEndpoint 3003
     ]
   killThread s1
   killThread s2

@@ -8,46 +8,68 @@ Discuss on Reddit - https://www.reddit.com/r/haskell/comments/5qpi15/expected_pe
 
 # Benchmark results
 
+Take note of the `renderTextT Reader` vs `renderTextT IO` and `transScottytransLucid` vs `transScottyTransLucid`
+
 ```
 Saurabhs-MacBook-Pro:monad-transformer-benchmark saurabhnanda$ stack exec monad-transformer-benchmark-exe
 Setting phasers to stun... (port 3001) (ctrl-c to quit)
-Setting phasers to stun... (port 3003) (ctrl-c to quit)
 Setting phasers to stun... (port 3002) (ctrl-c to quit)
+Setting phasers to stun... (port 3003) (ctrl-c to quit)
 Setting phasers to stun... (port 3000) (ctrl-c to quit)
+benchmarking renderText
+time                 32.04 ms   (31.14 ms .. 32.54 ms)
+                     0.997 R²   (0.994 R² .. 1.000 R²)
+mean                 31.73 ms   (31.25 ms .. 32.21 ms)
+std dev              1.049 ms   (785.1 μs .. 1.321 ms)
+variance introduced by outliers: 11% (moderately inflated)
+
+benchmarking renderTextT Identity
+time                 31.37 ms   (30.17 ms .. 32.47 ms)
+                     0.995 R²   (0.989 R² .. 0.998 R²)
+mean                 32.90 ms   (32.23 ms .. 33.53 ms)
+std dev              1.359 ms   (1.064 ms .. 1.839 ms)
+variance introduced by outliers: 11% (moderately inflated)
+
+benchmarking renderTextT Reader
+time                 33.45 ms   (32.94 ms .. 33.94 ms)
+                     0.999 R²   (0.998 R² .. 1.000 R²)
+mean                 34.38 ms   (33.95 ms .. 35.18 ms)
+std dev              1.177 ms   (647.7 μs .. 1.982 ms)
+variance introduced by outliers: 11% (moderately inflated)
+
+benchmarking renderTextT IO
+time                 74.52 ms   (73.08 ms .. 75.69 ms)
+                     0.999 R²   (0.998 R² .. 1.000 R²)
+mean                 75.17 ms   (74.51 ms .. 76.00 ms)
+std dev              1.247 ms   (880.2 μs .. 1.742 ms)
+
 benchmarking bareScotty
-time                 152.7 ms   (146.6 ms .. 158.1 ms)
-                     0.999 R²   (0.996 R² .. 1.000 R²)
-mean                 159.9 ms   (156.8 ms .. 164.2 ms)
-std dev              4.909 ms   (3.219 ms .. 6.527 ms)
+time                 153.7 ms   (149.9 ms .. 158.1 ms)
+                     0.999 R²   (0.998 R² .. 1.000 R²)
+mean                 160.2 ms   (157.5 ms .. 165.9 ms)
+std dev              5.399 ms   (1.659 ms .. 7.798 ms)
 variance introduced by outliers: 12% (moderately inflated)
 
 benchmarking bareScottyBareLucid
-time                 158.2 ms   (153.9 ms .. 162.3 ms)
-                     0.999 R²   (0.998 R² .. 1.000 R²)
-mean                 155.8 ms   (154.4 ms .. 157.5 ms)
-std dev              2.117 ms   (1.027 ms .. 2.653 ms)
+time                 161.5 ms   (152.9 ms .. 167.9 ms)
+                     0.998 R²   (0.995 R² .. 1.000 R²)
+mean                 160.5 ms   (158.2 ms .. 162.6 ms)
+std dev              2.831 ms   (1.913 ms .. 4.143 ms)
 variance introduced by outliers: 12% (moderately inflated)
 
 benchmarking transScottyBareLucid
-time                 161.5 ms   (155.5 ms .. 167.4 ms)
-                     0.998 R²   (0.996 R² .. 1.000 R²)
-mean                 157.2 ms   (155.4 ms .. 160.4 ms)
-std dev              3.164 ms   (1.510 ms .. 4.661 ms)
-variance introduced by outliers: 12% (moderately inflated)
+time                 167.5 ms   (154.7 ms .. 201.6 ms)
+                     0.976 R²   (0.918 R² .. 1.000 R²)
+mean                 160.8 ms   (155.9 ms .. 174.4 ms)
+std dev              11.26 ms   (515.2 μs .. 15.52 ms)
+variance introduced by outliers: 13% (moderately inflated)
 
 benchmarking transScottyTransLucid
-time                 269.2 ms   (246.5 ms .. 292.8 ms)
-                     0.998 R²   (0.994 R² .. 1.000 R²)
-mean                 263.4 ms   (256.2 ms .. 267.0 ms)
-std dev              6.762 ms   (6.966 μs .. 8.284 ms)
+time                 250.6 ms   (204.2 ms .. 298.2 ms)
+                     0.991 R²   (0.978 R² .. 1.000 R²)
+mean                 264.2 ms   (252.5 ms .. 274.6 ms)
+std dev              13.13 ms   (3.154 ms .. 16.99 ms)
 variance introduced by outliers: 16% (moderately inflated)
-
-benchmarking bareScotty
-time                 156.8 ms   (152.6 ms .. 159.6 ms)
-                     0.999 R²   (0.998 R² .. 1.000 R²)
-mean                 156.8 ms   (155.4 ms .. 158.3 ms)
-std dev              1.908 ms   (1.119 ms .. 2.718 ms)
-variance introduced by outliers: 12% (moderately inflated)
 ```
 
 # How to replicate
