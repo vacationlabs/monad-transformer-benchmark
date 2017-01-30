@@ -79,7 +79,7 @@ main = do
     , bench "renderTextT Identity" $ nf (runIdentity . renderTextT . lotsOfDivs) 10000
     , bench "renderTextT Reader" $ nf (flip runReader () . renderTextT . lotsOfDivs) 10000
     , bench "renderTextT IO" $ nfIO (renderTextT  (lotsOfDivs  10000) :: IO LT.Text)
-    , bench "bareScotty" $ nfIO $ fetchEndpoint 3001
+    , bench "bareScotty" $ nfIO $ fetchEndpoint 3000
     , bench "bareScottyBareLucid" $ nfIO $ fetchEndpoint 3001
     , bench "transScottyBareLucid" $ nfIO $ fetchEndpoint 3002
     , bench "transScottyTransLucid" $ nfIO $ fetchEndpoint 3003
