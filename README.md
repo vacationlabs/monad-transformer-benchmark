@@ -11,68 +11,63 @@ Discuss on Reddit - https://www.reddit.com/r/haskell/comments/5qpi15/expected_pe
 Take note of the `renderTextT Reader` vs `renderTextT IO` and `transScottytransLucid` vs `transScottyTransLucid`
 
 ```
-Saurabhs-MacBook-Pro:monad-transformer-benchmark saurabhnanda$ stack exec monad-transformer-benchmark-exe
-Setting phasers to stun... (port 3001) (ctrl-c to quit)
+vacationlabs@e2e-15-165:~/monad-transformer-benchmark$ export LC_ALL=en_US.UTF-8
+vacationlabs@e2e-15-165:~/monad-transformer-benchmark$ stack exec monad-transformer-benchmark-exe
+Setting phasers to stun... (port 3005) (ctrl-c to quit)
 Setting phasers to stun... (port 3002) (ctrl-c to quit)
+Setting phasers to stun... (port 3001) (ctrl-c to quit)
 Setting phasers to stun... (port 3003) (ctrl-c to quit)
-Setting phasers to stun... (port 3000) (ctrl-c to quit)
 benchmarking renderText
-time                 31.88 ms   (30.60 ms .. 33.34 ms)
-                     0.990 R²   (0.980 R² .. 0.997 R²)
-mean                 32.29 ms   (31.31 ms .. 33.51 ms)
-std dev              2.180 ms   (1.512 ms .. 3.505 ms)
-variance introduced by outliers: 22% (moderately inflated)
+time                 7.873 ms   (7.748 ms .. 8.025 ms) 
+                     0.997 R²   (0.995 R² .. 0.999 R²)
+mean                 7.926 ms   (7.869 ms .. 8.019 ms) 
+std dev              200.2 μs   (132.3 μs .. 272.1 μs)
 
 benchmarking renderTextT Identity
-time                 32.10 ms   (31.07 ms .. 33.36 ms)
-                     0.994 R²   (0.987 R² .. 0.998 R²)
-mean                 31.09 ms   (30.47 ms .. 32.11 ms)
-std dev              1.723 ms   (1.246 ms .. 2.233 ms)
+time                 8.353 ms   (8.138 ms .. 8.565 ms) 
+                     0.996 R²   (0.994 R² .. 0.998 R²)
+mean                 8.095 ms   (8.001 ms .. 8.230 ms) 
+std dev              320.7 μs   (218.3 μs .. 531.9 μs)
 variance introduced by outliers: 17% (moderately inflated)
 
 benchmarking renderTextT Reader
-time                 41.16 ms   (38.12 ms .. 45.35 ms)
-                     0.983 R²   (0.966 R² .. 0.998 R²)
-mean                 38.50 ms   (37.55 ms .. 40.23 ms)
-std dev              2.440 ms   (1.345 ms .. 4.159 ms)
-variance introduced by outliers: 19% (moderately inflated)
+time                 9.486 ms   (9.360 ms .. 9.640 ms)
+                     0.999 R²   (0.996 R² .. 1.000 R²)
+mean                 9.333 ms   (9.272 ms .. 9.408 ms)
+std dev              192.4 μs   (128.0 μs .. 294.0 μs)
 
 benchmarking renderTextT IO
-time                 79.60 ms   (75.12 ms .. 86.66 ms)
-                     0.990 R²   (0.975 R² .. 0.999 R²)
-mean                 83.10 ms   (80.60 ms .. 85.99 ms)
-std dev              4.508 ms   (3.229 ms .. 6.554 ms)
-variance introduced by outliers: 18% (moderately inflated)
+time                 23.14 ms   (22.81 ms .. 23.78 ms)
+                     0.997 R²   (0.992 R² .. 1.000 R²)
+mean                 23.21 ms   (22.97 ms .. 23.57 ms)
+std dev              639.2 μs   (404.0 μs .. 907.6 μs)
 
 benchmarking bareScotty
-time                 199.4 ms   (178.9 ms .. 229.1 ms)
-                     0.988 R²   (0.960 R² .. 1.000 R²)
-mean                 183.2 ms   (173.7 ms .. 196.1 ms)
-std dev              14.19 ms   (8.899 ms .. 21.20 ms)
-variance introduced by outliers: 15% (moderately inflated)
-
-benchmarking bareScottyBareLucid
-time                 165.1 ms   (120.8 ms .. 204.4 ms)
-                     0.971 R²   (0.945 R² .. 1.000 R²)
-mean                 183.2 ms   (169.4 ms .. 191.7 ms)
-std dev              14.71 ms   (7.677 ms .. 21.48 ms)
-variance introduced by outliers: 16% (moderately inflated)
-
-benchmarking transScottyBareLucid
-time                 202.3 ms   (187.8 ms .. 219.8 ms)
-                     0.997 R²   (0.995 R² .. 1.000 R²)
-mean                 190.0 ms   (184.7 ms .. 196.2 ms)
-std dev              7.073 ms   (4.174 ms .. 10.62 ms)
+time                 20.62 ms   (19.93 ms .. 21.39 ms)
+                     0.995 R²   (0.992 R² .. 0.998 R²)
+mean                 22.12 ms   (21.69 ms .. 22.49 ms)
+std dev              915.7 μs   (725.7 μs .. 1.192 ms)
 variance introduced by outliers: 14% (moderately inflated)
 
-benchmarking transScottyTransLucid
-time                 289.9 ms   (237.1 ms .. 375.0 ms)
-                     0.980 R²   (0.962 R² .. 1.000 R²)
-mean                 291.6 ms   (272.5 ms .. 305.4 ms)
-std dev              22.74 ms   (17.13 ms .. 27.38 ms)
-variance introduced by outliers: 18% (moderately inflated)
+benchmarking bareScottyBareLucid
+time                 21.06 ms   (20.74 ms .. 21.64 ms)
+                     0.997 R²   (0.994 R² .. 1.000 R²)
+mean                 21.09 ms   (20.89 ms .. 21.37 ms)
+std dev              523.6 μs   (359.6 μs .. 750.2 μs)
 
-Saurabhs-MacBook-Pro:monad-transformer-benchmark saurabhnanda$ 
+benchmarking transScottyBareLucid
+time                 20.95 ms   (20.58 ms .. 21.29 ms)
+                     0.998 R²   (0.997 R² .. 0.999 R²)
+mean                 21.49 ms   (21.13 ms .. 22.33 ms)
+std dev              1.178 ms   (580.0 μs .. 2.162 ms)
+variance introduced by outliers: 22% (moderately inflated)
+
+benchmarking transScottyTransLucid
+time                 49.05 ms   (46.63 ms .. 50.99 ms)
+                     0.996 R²   (0.994 R² .. 1.000 R²)
+mean                 45.91 ms   (44.90 ms .. 46.94 ms)
+std dev              2.004 ms   (1.367 ms .. 2.996 ms)
+variance introduced by outliers: 13% (moderately inflated)
 ```
 
 # How to replicate
@@ -82,5 +77,5 @@ Saurabhs-MacBook-Pro:monad-transformer-benchmark saurabhnanda$
 
 ```
 $ stack build
-$ stack exec monad-transformer-benchmark-exe
+$ LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 stack exec monad-transformer-benchmark-exe
 ```
