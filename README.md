@@ -30,23 +30,23 @@ The files with the markup are very large. Make sure your editor can handle large
 
 ```
 benchmarking dynamic markup via blaze
-time                 153.1 ms   (114.1 ms .. 209.5 ms)
-                     0.893 R²   (0.796 R² .. 0.997 R²)
-mean                 110.7 ms   (92.84 ms .. 142.2 ms)
-std dev              30.93 ms   (14.24 ms .. 49.21 ms)
-variance introduced by outliers: 74% (severely inflated)
+time                 143.1 ms   (127.3 ms .. 171.3 ms)
+                     0.956 R²   (0.876 R² .. 0.996 R²)
+mean                 125.7 ms   (96.66 ms .. 136.9 ms)
+std dev              26.59 ms   (7.777 ms .. 40.51 ms)
+variance introduced by outliers: 61% (severely inflated)
 
 benchmarking constant markup via blaze
-time                 136.7 ms   (128.6 ms .. 145.8 ms)
-                     0.994 R²   (0.982 R² .. 0.999 R²)
-mean                 113.7 ms   (93.85 ms .. 121.5 ms)
-std dev              17.56 ms   (4.724 ms .. 25.88 ms)
-variance introduced by outliers: 48% (moderately inflated)
+time                 126.1 ms   (95.79 ms .. 170.1 ms)
+                     0.945 R²   (0.868 R² .. 0.996 R²)
+mean                 138.7 ms   (124.0 ms .. 163.9 ms)
+std dev              23.44 ms   (10.55 ms .. 34.39 ms)
+variance introduced by outliers: 55% (severely inflated)
 
 benchmarking constant markup via text interpolation
-time                 254.6 ms   (174.9 ms .. 313.1 ms)
-                     0.960 R²   (0.883 R² .. 1.000 R²)
-mean                 314.3 ms   (303.8 ms .. 320.9 ms)
-std dev              9.910 ms   (332.9 μs .. 12.31 ms)
-variance introduced by outliers: 16% (moderately inflated)
+time                 320.8 ms   (189.9 ms .. 503.6 ms)
+                     0.923 R²   (0.763 R² .. 1.000 R²)
+mean                 286.7 ms   (231.7 ms .. 315.4 ms)
+std dev              52.57 ms   (1.885 ms .. 64.43 ms)
+variance introduced by outliers: 39% (moderately inflated)
 ```

@@ -29,7 +29,7 @@ main = do
     [
       bench "dynamic markup via blaze"  $ nfIO  $ writeHtml (DynamicMarkup.foliage tm)
     , bench "constant markup via blaze"  $ nfIO $ writeHtml ConstantMarkup.foliage
-    , bench "constant markup via text interpolation"  $ nfIO $ writeHtml  ConstantStringMarkup.foliage
+    , bench "constant markup via text interpolation"  $ nfIO $ writeString ConstantStringMarkup.foliage
     ]
   return ()
 
@@ -37,3 +37,6 @@ main = do
 writeHtml :: Html -> IO ()
 writeHtml h = void $ forM [1..10] $ const $ writeFile "/tmp/output.html" (renderHtml h) 
 
+
+writeString :: String -> IO ()
+writeString h = void $ forM [1..10] $ const $ writeFile "/tmp/output.html" h 
