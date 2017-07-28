@@ -6,7 +6,7 @@ I've benchmarked three scenarios:
 
 * Blaze template which inserts "dynamic" values into the template, passed-in a arguments to the template.
 * Blaze template which has nothing dynamic about it. Every time you execute it, it results in the exact same markup, i.e. constant markup.
-* String interpolate template with constant markup. I'm using the [Perl6 quasi-quoting library](http://hackage.haskell.org/package/interpolatedstring-perl6-0.9.0/docs/Text-InterpolatedString-Perl6.html) to deal with multi-line strings in Haskell.
+* String interpolated template with constant markup. I'm using the [Perl6 quasi-quoting library](http://hackage.haskell.org/package/interpolatedstring-perl6-0.9.0/docs/Text-InterpolatedString-Perl6.html) to deal with multi-line strings in Haskell.
 
 I was exepcting the following results in order of execution speed:
 
@@ -24,7 +24,7 @@ If you're interested, the generated splice for the string quasi-quoting is avail
 
 ### Warning
 
-The files with the markup are very large. Make sure your editor can handle large files (I'm looking at youe emacs!). 
+The files with the markup are very large. Make sure your editor can handle large files (I'm looking at you emacs!). 
 
 # Benchmark results
 
