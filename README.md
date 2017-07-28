@@ -20,6 +20,12 @@ static text (fastest) > static blaze > dynamic blaze (slowest)
 dynamic blaze ~ constant blaze (no significant difference) >> static text (very slow)
 ```
 
+If you're interested, the generated splice for the string quasi-quoting is available at [ConstantStringMarkup.dump-splices](https://raw.githubusercontent.com/vacationlabs/monad-transformer-benchmark/d32511c9348afd648028c3302c5debd0d2d255ed/ConstantStringMarkup.dump-splices) (warning - it's very large!)
+
+### Warning
+
+The files with the markup are very large. Make sure your editor can handle large files (I'm looking at youe emacs!). 
+
 # Benchmark results
 
 ```
