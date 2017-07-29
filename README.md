@@ -14,10 +14,10 @@ I was exepcting the following results in order of execution speed:
 static text (fastest) > static blaze > dynamic blaze (slowest)
 ```
 
-**Suprisingly,** the benchmarks are the **exact opposite**, i.e.:
+**Suprisingly,** the benchmarks indicate otherwise
 
 ```
-dynamic blaze ~ constant blaze (no significant difference) >> static text (very slow)
+dynamic blaze ~ constant blaze (no significant difference, but dynamic blaze is always slightly faster) > static text (slower)
 ```
 
 If you're interested, the generated splice for the string quasi-quoting is available at [ConstantStringMarkup.dump-splices](https://raw.githubusercontent.com/vacationlabs/monad-transformer-benchmark/d32511c9348afd648028c3302c5debd0d2d255ed/ConstantStringMarkup.dump-splices) (warning - it's very large!)
@@ -30,23 +30,23 @@ The files with the markup are very large. Make sure your editor can handle large
 
 ```
 benchmarking dynamic markup via blaze
-time                 143.1 ms   (127.3 ms .. 171.3 ms)
-                     0.956 R²   (0.876 R² .. 0.996 R²)
-mean                 125.7 ms   (96.66 ms .. 136.9 ms)
-std dev              26.59 ms   (7.777 ms .. 40.51 ms)
-variance introduced by outliers: 61% (severely inflated)
-
-benchmarking constant markup via blaze
-time                 126.1 ms   (95.79 ms .. 170.1 ms)
-                     0.945 R²   (0.868 R² .. 0.996 R²)
-mean                 138.7 ms   (124.0 ms .. 163.9 ms)
-std dev              23.44 ms   (10.55 ms .. 34.39 ms)
-variance introduced by outliers: 55% (severely inflated)
+time                 125.4 ms   (92.05 ms .. 148.3 ms)
+                     0.925 R²   (0.804 R² .. 0.993 R²)
+mean                 105.0 ms   (91.28 ms .. 115.3 ms)
+std dev              19.26 ms   (13.25 ms .. 26.51 ms)
+variance introduced by outliers: 54% (severely inflated)
 
 benchmarking constant markup via text interpolation
-time                 320.8 ms   (189.9 ms .. 503.6 ms)
-                     0.923 R²   (0.763 R² .. 1.000 R²)
-mean                 286.7 ms   (231.7 ms .. 315.4 ms)
-std dev              52.57 ms   (1.885 ms .. 64.43 ms)
-variance introduced by outliers: 39% (moderately inflated)
+time                 140.3 ms   (94.46 ms .. 195.7 ms)
+                     0.872 R²   (0.524 R² .. 0.989 R²)
+mean                 124.6 ms   (106.7 ms .. 145.8 ms)
+std dev              28.83 ms   (19.63 ms .. 40.59 ms)
+variance introduced by outliers: 73% (severely inflated)
+
+benchmarking constant markup via blaze
+time                 131.3 ms   (100.3 ms .. 165.7 ms)
+                     0.885 R²   (0.673 R² .. 0.984 R²)
+mean                 143.7 ms   (123.7 ms .. 158.7 ms)
+std dev              24.85 ms   (14.94 ms .. 35.03 ms)
+variance introduced by outliers: 48% (moderately inflated)
 ```

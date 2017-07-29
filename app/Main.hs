@@ -28,8 +28,8 @@ main = do
   defaultMain
     [
       bench "dynamic markup via blaze"  $ nfIO  $ writeHtml (DynamicMarkup.foliage tm)
-    , bench "constant markup via blaze"  $ nfIO $ writeHtml ConstantMarkup.foliage
     , bench "constant markup via text interpolation"  $ nfIO $ writeString ConstantStringMarkup.foliage
+    , bench "constant markup via blaze"  $ nfIO $ writeHtml ConstantMarkup.foliage
     ]
   return ()
 
