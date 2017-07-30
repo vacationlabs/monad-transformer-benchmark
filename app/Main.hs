@@ -21,6 +21,7 @@ import qualified ConstantMarkup
 import Text.Blaze.Html.Renderer.String
 import Data.Time
 import qualified ConstantStringMarkup
+import qualified DynamicStringMarkup
 
 main :: IO ()
 main = do
@@ -28,15 +29,16 @@ main = do
   defaultMain
     [
       bench "dynamic markup via blaze"  $ nfIO  $ writeHtml (DynamicMarkup.foliage tm)
-    , bench "constant markup via text interpolation"  $ nfIO $ writeString ConstantStringMarkup.foliage
     , bench "constant markup via blaze"  $ nfIO $ writeHtml ConstantMarkup.foliage
+    , bench "constant markup via text interpolation"  $ nfIO $ writeString ConstantStringMarkup.foliage
+    , bench "dynamic markup via text interpolation"  $ nfIO $ writeString (DynamicStringMarkup.foliage tm)
     ]
   return ()
 
 
 writeHtml :: Html -> IO ()
-writeHtml h = void $ forM [1..10] $ const $ writeFile "/tmp/output.html" (renderHtml h) 
+writeHtml h = void $ forM [1..10] $ const $ writeFile "/dev/null" (renderHtml h) 
 
 
 writeString :: String -> IO ()
-writeString h = void $ forM [1..10] $ const $ writeFile "/tmp/output.html" h 
+writeString h = void $ forM [1..10] $ const $ writeFile "/dev/null" h 

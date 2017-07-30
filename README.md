@@ -2,27 +2,29 @@
 
 This branch was a quick attempt to see how HTML DSLs like Blaze (or Lucid) fare against regular text-interploated templates. I was expecting DSLs to be slower than string interploation, but the benchmarks are surprisingly painting a different picture.
 
-I've benchmarked three scenarios:
+I've benchmarked four scenarios:
 
 * Blaze template which inserts "dynamic" values into the template, passed-in a arguments to the template.
 * Blaze template which has nothing dynamic about it. Every time you execute it, it results in the exact same markup, i.e. constant markup.
 * String interpolated template with constant markup. I'm using the [Perl6 quasi-quoting library](http://hackage.haskell.org/package/interpolatedstring-perl6-0.9.0/docs/Text-InterpolatedString-Perl6.html) to deal with multi-line strings in Haskell.
+* String interpolated template with dynamic markup. 
 
 I was exepcting the following results in order of execution speed:
 
 ```
-static text (fastest) > static blaze > dynamic blaze (slowest)
+static markup with string templates (fastest)
+  > dynamic markup with string templates
+  > static markup generated via blaze
+  > dynamic markup generated via blaze (slowest)
 ```
 
-**Suprisingly,** the benchmarks indicate otherwise
+# Results
 
-```
-dynamic blaze ~ constant blaze (no significant difference, but dynamic blaze is always slightly faster) > static text (slower)
-```
+After fixing a bunch of mis-steps in the benchmarking code itself, I can confirm that blaze is about **2x slower** than string templates. My benchmarks haven't been able to prove any difference between static markup and dynamic markup mostly because the dynamic markup is replacing just a *single value* in the template. It's not doing too much dynamic work, to begin with. 
 
-If you're interested, the generated splice for the string quasi-quoting is available at [ConstantStringMarkup.dump-splices](https://raw.githubusercontent.com/vacationlabs/monad-transformer-benchmark/d32511c9348afd648028c3302c5debd0d2d255ed/ConstantStringMarkup.dump-splices) (warning - it's very large!)
+If you're interested, the generated splice for the string quasi-quoting is available at [ConstantStringMarkup.dump-splices](https://raw.githubusercontent.com/vacationlabs/monad-transformer-benchmark/d32511c9348afd648028c3302c5debd0d2d255ed/ConstantStringMarkup.dump-splices) (warning - it's very large!) & [DynamicStringMarkup.dump-splices]()
 
-### Warning
+# Warning
 
 The files with the markup are very large. Make sure your editor can handle large files (I'm looking at you emacs!). 
 
@@ -30,23 +32,27 @@ The files with the markup are very large. Make sure your editor can handle large
 
 ```
 benchmarking dynamic markup via blaze
-time                 125.4 ms   (92.05 ms .. 148.3 ms)
-                     0.925 R²   (0.804 R² .. 0.993 R²)
-mean                 105.0 ms   (91.28 ms .. 115.3 ms)
-std dev              19.26 ms   (13.25 ms .. 26.51 ms)
-variance introduced by outliers: 54% (severely inflated)
-
-benchmarking constant markup via text interpolation
-time                 140.3 ms   (94.46 ms .. 195.7 ms)
-                     0.872 R²   (0.524 R² .. 0.989 R²)
-mean                 124.6 ms   (106.7 ms .. 145.8 ms)
-std dev              28.83 ms   (19.63 ms .. 40.59 ms)
-variance introduced by outliers: 73% (severely inflated)
+time                 47.64 ms   (45.81 ms .. 49.47 ms)
+                     0.995 R²   (0.990 R² .. 0.999 R²)
+mean                 47.39 ms   (46.16 ms .. 49.63 ms)
+std dev              3.332 ms   (1.571 ms .. 5.639 ms)
+variance introduced by outliers: 20% (moderately inflated)
 
 benchmarking constant markup via blaze
-time                 131.3 ms   (100.3 ms .. 165.7 ms)
-                     0.885 R²   (0.673 R² .. 0.984 R²)
-mean                 143.7 ms   (123.7 ms .. 158.7 ms)
-std dev              24.85 ms   (14.94 ms .. 35.03 ms)
-variance introduced by outliers: 48% (moderately inflated)
+time                 46.35 ms   (44.44 ms .. 49.26 ms)
+                     0.994 R²   (0.987 R² .. 0.999 R²)
+mean                 47.63 ms   (46.78 ms .. 48.50 ms)
+std dev              1.679 ms   (1.301 ms .. 2.173 ms)
+
+benchmarking constant markup via text interpolation
+time                 22.53 ms   (22.18 ms .. 22.84 ms)
+                     0.999 R²   (0.998 R² .. 0.999 R²)
+mean                 23.10 ms   (22.84 ms .. 23.52 ms)
+std dev              745.3 μs   (456.3 μs .. 1.215 ms)
+
+benchmarking dynamic markup via text interpolation
+time                 23.15 ms   (22.73 ms .. 23.67 ms)
+                     0.998 R²   (0.996 R² .. 1.000 R²)
+mean                 23.18 ms   (22.99 ms .. 23.42 ms)
+std dev              500.7 μs   (370.9 μs .. 703.4 μs)
 ```
