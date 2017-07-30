@@ -22,7 +22,7 @@ static markup with string templates (fastest)
 
 After fixing a bunch of mis-steps in the benchmarking code itself, I can confirm that blaze is about **2x slower** than string templates. My benchmarks haven't been able to prove any difference between static markup and dynamic markup mostly because the dynamic markup is replacing just a *single value* in the template. It's not doing too much dynamic work, to begin with. 
 
-If you're interested, the generated splice for the string quasi-quoting is available at [ConstantStringMarkup.dump-splices](https://raw.githubusercontent.com/vacationlabs/monad-transformer-benchmark/d32511c9348afd648028c3302c5debd0d2d255ed/ConstantStringMarkup.dump-splices) (warning - it's very large!) & [DynamicStringMarkup.dump-splices]()
+If you're interested, the generated splice for the string quasi-quoting is available at [ConstantStringMarkup.dump-splices](https://github.com/vacationlabs/monad-transformer-benchmark/blob/22cd8be1571b1d7f536116af732e6e1d276096dc/ConstantStringMarkup.dump-splices) (warning - it's very large!) & [DynamicStringMarkup.dump-splices](https://raw.githubusercontent.com/vacationlabs/monad-transformer-benchmark/22cd8be1571b1d7f536116af732e6e1d276096dc/DynamicStringMarkup.dump-splices)
 
 # Warning
 
